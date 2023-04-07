@@ -19,3 +19,7 @@ clj -M -m task-flexiana.app
 clj -X:test
 ```
 
+### Notes
+
+Run frontend and backed in separate terminals.
+Stop both frontend and backend before running tests.
