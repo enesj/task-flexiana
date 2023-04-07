@@ -18,12 +18,14 @@
    :headers {"Content-Type" "text/plain"}
    :body "Scrambles challenge home page\n"})
 
-(defn scramble? [[s1 s2]]
-  (if (empty? s2)
-    true
-    (if (.contains s1 (str (first s2)))
-      (scramble? (mapv #(clojure.string/replace-first % (str (first s2)) "") [s1 s2]))
-      false)))
+(defn scramble? [s1-2]
+  (let [[s1 s2] s1-2]
+    (if (empty? s2)
+      true
+      (let [search (str (first s2))]
+        (if (.contains s1 search)
+          (scramble? (mapv #(clojure.string/replace-first % (re-pattern search) "") s1-2))
+          false)))))
 
 (defn scramble
   ""
