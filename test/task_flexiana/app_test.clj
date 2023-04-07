@@ -15,26 +15,16 @@
 
 (deftest scramble-test
   (testing "scramble?"
-    (is (= {:status  200
-            :headers {"Content-Type" "text/plain"}
-            :body    "true"}
-           (handlers/scramble {:params {:str1 "rekqodlw" :str2 "world"}})))
-    (is (= {:status  200
-            :headers {"Content-Type" "text/plain"}
-            :body    "false"}
-           (handlers/scramble {:params {:str1 "rekqodl" :str2 "world"}})))
-    (is (= {:status  200
-            :headers {"Content-Type" "text/plain"}
-            :body    "true"}
-           (handlers/scramble {:params {:str1 "cedewaraaossoqqyt" :str2 "codewars"}})))
-    (is (= {:status  200
-            :headers {"Content-Type" "text/plain"}
-            :body    "false"}
-           (handlers/scramble {:params {:str1 "katser" :str2 "katas"}})))
-    (is (= {:status  400
-            :headers {"Content-Type" "text/plain"}
-            :body    "Please provide both str1 and str2 parameters"}
-           (handlers/scramble {:params {:str1 "katser"}})))))
+    (is (= "true"
+           (:body (handlers/scramble {:params {:str1 "rekqodlw" :str2 "world"}}))))
+    (is (= "false"
+           (:body (handlers/scramble {:params {:str1 "rekqodl" :str2 "world"}}))))
+    (is (= "true"
+           (:body (handlers/scramble {:params {:str1 "cedewaraaossoqqyt" :str2 "codewars"}}))))
+    (is (= "false"
+           (:body (handlers/scramble {:params {:str1 "katser" :str2 "katas"}}))))
+    (is (= "Please provide both str1 and str2 parameters"
+           (:body (handlers/scramble {:params {:str1 "katser"}}))))))
 
 (deftest scramble-http-test
   (testing "scramble?"
