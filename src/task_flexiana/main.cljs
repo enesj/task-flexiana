@@ -6,9 +6,13 @@
 
 (def state (r/atom {:str1 nil :str2 nil :result nil}))
 
+(defn error-handler [{:keys [status status-text]}]
+  (.log js/console (str "Error" status " " status-text)))
+
 (defn scramble [[str1 str2]]
   (GET "http://localhost:3000/scramble" {:params {:str1 str1 :str2 str2}
-                                         :handler #(swap! state assoc :result %)}))
+                                         :handler #(swap! state assoc :result %)
+                                         :error-handler error-handler}))
 
 (def title "Scrambles challenge")
 
